@@ -3,250 +3,216 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JØKER VEND4S - Versão 2.0 Turbo Final</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
+    <title>Mega Fast VIP</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #00d4ff;
-            --reserved-yellow: #ffd700;
-            --danger-stripes: repeating-linear-gradient(45deg, #ffd700, #ffd700 10px, #000 10px, #000 20px);
-            --whatsapp-green: #25d366;
-            --gold: #bf953f;
+        :root { --shopee: #ee4d2d; --meli: #fff159; --bg: #0b0b0b; --card: #161616; --text: #f0f0f0; --green: #00ff88; --blue: #00d4ff; --red: #ff7675; --verify: #1d9bf0; }
+        * { font-family: 'Poppins', sans-serif; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg); margin: 0; color: var(--text); padding-bottom: 110px; overflow-x: hidden; }
+
+        /* Banner Push iOS */
+        #push-banner {
+            position: fixed; top: -300px; left: 50%; transform: translateX(-50%);
+            width: 92%; max-width: 380px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px);
+            border-radius: 24px; padding: 20px; z-index: 9999; display: flex; flex-direction: column; gap: 12px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4); transition: 0.7s cubic-bezier(0.19, 1, 0.22, 1);
         }
+        #push-banner.show { top: 20px; }
 
-        body { 
-            font-family: 'Orbitron', sans-serif; 
-            background: #000; color: #fff; margin: 0; text-align: center; overflow-x: hidden; 
+        /* Prova Social 25s */
+        #sale-notification {
+            position: fixed; bottom: 100px; left: 20px; background: rgba(255, 255, 255, 0.95);
+            color: #000; padding: 12px 18px; border-radius: 18px; font-size: 11px; font-weight: 700;
+            display: flex; align-items: center; gap: 10px; z-index: 900;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); transform: translateX(-180%); transition: 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
+        #sale-notification.show { transform: translateX(0); }
+        .sale-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 1s infinite; }
 
-        #particles-js { position: fixed; width: 100%; height: 100%; top: 0; left: 0; z-index: -1; }
-
-        .stock-bar {
-            background: linear-gradient(90deg, #ff0000, #800000);
-            color: #fff; padding: 8px 0; font-size: 10px; font-weight: 900;
-            letter-spacing: 2px; position: sticky; top: 0; z-index: 1000;
-            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
-        }
-
-        header { padding: 30px 20px 10px; }
-
-        .logo-container { position: relative; width: 110px; height: 110px; margin: 0 auto; }
-        .header-logo-image { width: 100px; height: 100px; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 0 20px var(--primary); }
-
-        .logo-chrome { 
-            font-size: 2.2em; font-weight: 900; margin: 15px 0 5px;
-            text-transform: uppercase;
-            background: linear-gradient(90deg, #0088cc, #00d4ff, #fff, #00d4ff, #0088cc);
-            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: shine-move 4s linear infinite;
-        }
-        @keyframes shine-move { to { background-position: 200% center; } }
-
-        .selo-dourado {
-            display: inline-block; font-size: 11px; font-weight: bold;
-            background: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fcf6ba, #bf953f);
-            background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: shine-move 3s linear infinite; margin-bottom: 10px;
-        }
-
-        .carousel-text-container { height: 20px; margin-bottom: 15px; }
-        #ref-text { color: #00ff88; font-size: 10px; font-weight: bold; transition: opacity 0.5s ease-in-out; }
-
-        /* CARD AJUSTADO SEM CORTAR A FOTO */
-        .card { 
-            background: rgba(255, 255, 255, 0.04); width: 330px; border-radius: 20px; 
-            border: 1px solid rgba(255,255,255,0.1); overflow: hidden; margin: 10px auto;
-            backdrop-filter: blur(15px); position: relative;
-        }
+        .app-container { width: 98%; max-width: 500px; margin: 0 auto; padding: 10px; }
+        .header-premium { text-align: center; padding: 25px 0; }
+        .header-premium h2 { margin: 0; font-size: 32px; font-weight: 900; background: linear-gradient(135deg, #fff 30%, var(--green) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-transform: uppercase; }
         
-        /* FAIXA AMARELA FORA DA FOTO */
-        .joker-bar-container { width: 100%; height: 0; overflow: hidden; transition: 0.3s; }
-        .joker-bar { width: 100%; background: #ffd700; color: #000; padding: 12px 0; font-size: 10px; font-weight: 900; text-align: center; }
-        .joker-bar span { display: inline-block; animation: text-only-pulse 0.8s ease-in-out infinite; }
+        .online-count { font-size: 10px; color: #666; font-weight: 800; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .dot-green { width: 7px; height: 7px; background: var(--green); border-radius: 50%; box-shadow: 0 0 10px var(--green); }
+
+        /* Categorias e Busca */
+        .categories { display: flex; overflow-x: auto; gap: 12px; margin-bottom: 20px; padding: 5px 0; scrollbar-width: none; }
+        .cat-circle { width: 55px; height: 55px; background: #1a1a1a; border-radius: 18px; display: flex; align-items: center; justify-content: center; border: 1px solid #222; font-size: 20px; margin-bottom: 6px; color: var(--blue); }
         
-        @keyframes text-only-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); color: #ff0000; } }
+        .search-box { background: #161616; border-radius: 16px; padding: 14px; margin-bottom: 15px; display: flex; align-items: center; border: 1px solid #222; }
+        .search-box input { background: transparent; border: none; color: #fff; width: 100%; outline: none; margin-left: 10px; font-size: 13px; }
 
-        /* ATIVA A FAIXA SÓ QUANDO RESERVADO */
-        .card.is-reserved .joker-bar-container { height: 42px; border-bottom: 1px solid #000; }
+        .tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .tab { background: #161616; padding: 12px; border-radius: 14px; font-size: 11px; cursor: pointer; border: 1px solid #222; flex: 1; text-align: center; font-weight: 800; color: #888; }
+        .tab.active { background: #fff; color: #000; border-color: #fff; }
 
-        .media-container { position: relative; width: 100%; height: auto; background: #000; line-height: 0; }
-        .mySlides { width: 100%; height: auto; display: none; }
+        /* Vitrine Blindada */
+        #vitrine { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .product-card { background: var(--card); border-radius: 22px; overflow: hidden; position: relative; border: 1px solid #222; display: flex; flex-direction: column; }
         
-        .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 15px 10px; cursor: pointer; z-index: 35; }
-        .prev-btn { left: 0; } .next-btn { right: 0; }
-
-        /* PONTINHOS DO CARROSSEL (DOTS) - NA ÁREA PRETA */
-        .dots-container { width: 100%; text-align: center; padding: 10px 0; background: rgba(0,0,0,0.5); border-top: 1px solid rgba(255,255,255,0.05); }
-        .dot { height: 7px; width: 7px; margin: 0 4px; background-color: rgba(255,255,255,0.2); border-radius: 50%; display: inline-block; transition: 0.3s; cursor: pointer; }
-        .dot.active { background-color: var(--primary); width: 15px; border-radius: 10px; }
-
-        /* OUTROS EFEITOS DE RESERVA */
-        .reserve-x { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 160px; color: rgba(255, 255, 255, 0.12); z-index: 10; }
-        .danger-stripe { display: none; position: absolute; width: 160%; height: 35px; background: var(--danger-stripes); z-index: 15; opacity: 0.9; }
-        .stripe-1 { top: 25%; left: -30%; transform: rotate(-15deg); }
-        .stripe-2 { bottom: 25%; left: -30%; transform: rotate(15deg); }
+        .origin-tag { position: absolute; top: 10px; right: 10px; padding: 5px 10px; border-radius: 10px; font-size: 8px; font-weight: 900; z-index: 20; text-transform: uppercase; }
+        .tag-shopee { background: var(--shopee); color: #fff; }
+        .tag-meli { background: var(--meli); color: #2d3277; }
         
-        .card.is-reserved .danger-stripe, .card.is-reserved .reserve-x { display: block; }
+        .discount-tag { position: absolute; top: 10px; left: 10px; background: var(--green); color: #000; font-size: 9px; font-weight: 900; padding: 5px 8px; border-radius: 8px; z-index: 10; }
+        
+        .fav-btn { position: absolute; top: 45px; right: 10px; background: rgba(0,0,0,0.5); border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; z-index: 30; border: none; color: #fff; }
+        .fav-btn.active { color: var(--red); background: #fff; }
 
-        .price-tag { color: #00ff88; font-size: 2.2em; font-weight: 900; margin: 10px 0; }
-        .btn-reserva { font-family: 'Orbitron', sans-serif; background: transparent; color: #ffd700; border: 2px solid #ffd700; width: 85%; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-bottom: 10px; }
-        .btn-reserva.active { background: #ff0000; color: #fff; border: none; }
-        .btn-buy { font-family: 'Orbitron', sans-serif; display: block; background: #25d366; color: #fff; padding: 15px; margin: 0 25px 20px; border-radius: 8px; text-decoration: none; font-weight: 900; }
+        .product-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: #fff; }
+        
+        .product-info { padding: 12px; flex-grow: 1; }
+        .product-name { font-size: 11px; font-weight: 600; height: 32px; overflow: hidden; color: #ccc; line-height: 1.3; margin-bottom: 8px; }
+        
+        .old-price { font-size: 10px; color: #555; text-decoration: line-through; display: block; }
+        .price { font-size: 20px; font-weight: 900; color: var(--green); }
+        
+        .benefit-badges { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 8px; }
+        .b-badge { font-size: 8px; font-weight: 800; padding: 2px 5px; border-radius: 4px; text-transform: uppercase; border: 1px solid; }
 
-        .pix-container { margin: 20px auto; max-width: 330px; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-        .pix-badge { border: 1.5px solid var(--gold); color: var(--gold); padding: 6px; font-size: 9px; border-radius: 4px; width: 44%; font-weight: bold; }
-        .pix-badge.full { width: 60%; }
+        .btn-buy { border: none; width: 100%; padding: 14px; font-weight: 900; text-transform: uppercase; font-size: 10px; cursor: pointer; }
+        .btn-shopee { background: var(--shopee); color: #fff; }
+        .btn-meli { background: #2d3277; color: #fff; border-top: 2px solid var(--meli); }
 
-        .faq-section { max-width: 320px; margin: 20px auto; text-align: left; padding-bottom: 80px; }
-        details { background: rgba(255,255,255,0.03); padding: 10px; margin-bottom: 6px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); }
-        summary { color: var(--primary); font-size: 10px; cursor: pointer; font-weight: bold; }
-        details p { font-size: 9px; color: #aaa; margin-top: 5px; }
-
-        .whatsapp-float { position: fixed; bottom: 20px; right: 20px; width: 60px; height: 60px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 9999; }
-        .music-control { position: fixed; top: 15px; right: 15px; z-index: 1001; }
-        .btn-audio { background: rgba(0,0,0,0.8); border: 1.5px solid var(--primary); color: #fff; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+        /* BARRA TRANSPARENTE COM NOVOS ÍCONES */
+        .bottom-nav { 
+            position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); 
+            width: 180px; background: rgba(255, 255, 255, 0.08); 
+            backdrop-filter: blur(25px); border-radius: 35px; display: flex; justify-content: space-around; 
+            padding: 12px; border: 1px solid rgba(255,255,255,0.15); z-index: 1000; 
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+        .nav-icon { color: #fff; font-size: 20px; opacity: 0.6; cursor: pointer; }
+        .nav-icon.active { opacity: 1; color: var(--blue); }
     </style>
 </head>
 <body>
 
-<div class="stock-bar">🔥 RESTAM APENAS <span id="count">3</span> CONTAS DISPONÍVEIS HOJE!</div>
-<div id="particles-js"></div>
+<div id="sale-notification">
+    <div class="sale-dot"></div>
+    <span id="sale-text">Carregando ofertas...</span>
+</div>
 
-<div class="music-control"><button class="btn-audio" onclick="toggleAudio()" id="audioBtn">🔇</button></div>
-<audio id="myAudio" loop><source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg"></audio>
-
-<header>
-    <div class="logo-container">
-        <img src="https://i.ibb.co/rKz6x4km/348615000-142782245458936-4763420817117334927-n.jpg" class="header-logo-image">
-    </div>
-    <h1 class="logo-chrome">JØKER VEND4S</h1>
-    <div class="selo-dourado">🛡️ 4 ANOS DE MERCADO FF 🛡️</div>
-    <div class="carousel-text-container"><span id="ref-text">🛡️ VENDEDOR VERIFICADO</span></div>
-</header>
-
-<div class="card" id="card1">
-    <div class="joker-bar-container">
-        <div class="joker-bar"><span>🔒 RESERVADA PELO JØKER PARA VOCÊ</span></div>
-    </div>
-
-    <div class="media-container">
-        <div class="reserve-x">✕</div>
-        <div class="danger-stripe stripe-1"></div><div class="danger-stripe stripe-2"></div>
-        
-        <button class="nav-btn prev-btn" onclick="plusDivs(-1)">❮</button>
-        <img class="mySlides" src="https://i.ibb.co/QFKXKCRk/Screenshot-2026-04-12-19-25-51-412-com-dts-freefireth.jpg" style="display:block">
-        <img class="mySlides" src="https://i.ibb.co/nNxctmfb/Screenshot-2026-04-12-19-32-06-962-com-dts-freefireth.jpg">
-        <img class="mySlides" src="https://i.ibb.co/bjDs2J18/Screenshot-2026-04-12-19-31-06-468-com-dts-freefireth.jpg">
-        <img class="mySlides" src="https://i.ibb.co/q39krKsC/Screenshot-2026-04-12-19-31-33-296-com-dts-freefireth.jpg">
-        <img class="mySlides" src="https://i.ibb.co/Mx0pwQMS/Screenshot-2026-04-12-19-31-39-053-com-dts-freefireth.jpg">
-        <button class="nav-btn next-btn" onclick="plusDivs(1)">❯</button>
-    </div>
-
-    <div class="dots-container">
-        <span class="dot active" onclick="currentDiv(1)"></span>
-        <span class="dot" onclick="currentDiv(2)"></span>
-        <span class="dot" onclick="currentDiv(3)"></span>
-        <span class="dot" onclick="currentDiv(4)"></span>
-        <span class="dot" onclick="currentDiv(5)"></span>
-    </div>
-    
-    <div style="padding: 10px;">
-        <div class="price-tag">R$ 90,00</div>
-        <div style="font-size: 10px; color: #aaa; font-weight: bold; margin-bottom: 15px;">
-            🔹 PEITORAL TRAP / CALÇA RARA <br>
-            🔹 FULL ACESSO VIA GOOGLE
-        </div>
-        <button class="btn-reserva" id="btnReserva" onclick="iniciarReserva()">🔒 RESERVAR CONTA</button>
-        <a href="https://wa.me/5577988066710" class="btn-buy">COMPRAR AGORA</a>
+<div id="push-banner">
+    <div style="font-weight: 800; color:#111">🔔 NOTIFICAÇÕES VIP</div>
+    <div style="font-size: 13px; color:#444">Deseja ser avisado no celular sobre novos achadinhos?</div>
+    <div style="display:flex; gap:10px; margin-top:10px">
+        <button style="flex:1; padding:10px; border-radius:12px; border:none; background:#eee" onclick="closePush()">NÃO</button>
+        <button style="flex:1; padding:10px; border-radius:12px; border:none; background:#111; color:#fff" onclick="requestRealPush()">ATIVAR</button>
     </div>
 </div>
 
-<div class="pix-container">
-    <div class="pix-badge">🛡️ SITE BLINDADO</div>
-    <div class="pix-badge">🔒 COMPRA SEGURA</div>
-    <div class="pix-badge full">💎 VENDEDOR VERIFICADO</div>
+<div class="app-container">
+    <div class="header-premium">
+        <h2>MEGA FAST <span style="color:var(--verify); font-size: 20px;">✔</span></h2>
+        <div class="online-count"><span class="dot-green"></span> <span id="user-online">154</span> NO SITE AGORA</div>
+    </div>
+
+    <div class="categories">
+        <div class="cat-item" onclick="resetSearch()"><div class="cat-circle"><i class="fa-solid fa-bolt"></i></div><span>Tudo</span></div>
+        <div class="cat-item" onclick="searchByCat('cozinha')"><div class="cat-circle"><i class="fa-solid fa-utensils"></i></div><span>Cozinha</span></div>
+        <div class="cat-item" onclick="searchByCat('tech')"><div class="cat-circle"><i class="fa-solid fa-laptop"></i></div><span>Tech</span></div>
+        <div class="cat-item" onclick="searchByCat('casa')"><div class="cat-circle"><i class="fa-solid fa-house-chimney"></i></div><span>Casa</span></div>
+    </div>
+
+    <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass" style="color:#666"></i>
+        <input type="text" id="searchInput" placeholder="Buscar oferta..." onkeyup="search()">
+    </div>
+
+    <div class="tabs">
+        <div class="tab active" id="tabAll" onclick="filterTab('all')">OFERTAS</div>
+        <div class="tab" id="tabFav" onclick="filterTab('fav')">FAVORITOS ❤️</div>
+    </div>
+
+    <div id="vitrine"></div>
 </div>
 
-<div class="faq-section">
-    <details><summary>COMO RECEBO A CONTA? ▼</summary><p>O envio é imediato pelo WhatsApp após o pagamento.</p></details>
-    <details><summary>A COMPRA É SEGURA? ▼</summary><p>4 anos de mercado e centenas de referências reais.</p></details>
-    <details><summary>TEM GARANTIA? ▼</summary><p>Garantia vitalícia contra recuperação em todas as contas.</p></details>
-    <details><summary>POSSO MUDAR OS DADOS? ▼</summary><p>Sim, você recebe acesso total para trocar tudo.</p></details>
-    <details><summary>QUAIS AS FORMAS DE PAGAMENTO? ▼</summary><p>Aceitamos Pix e Cartão com liberação na hora.</p></details>
-</div>
+<nav class="bottom-nav">
+    <i class="fa-solid fa-house-user nav-icon active" onclick="location.reload()"></i>
+    <i class="fa-solid fa-comment-dots nav-icon" onclick="window.open('https://chat.whatsapp.com/L5u0qgtqHFBCxSbfNEG4oC')"></i>
+</nav>
 
-<a href="https://wa.me/5577988066710" class="whatsapp-float"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" width="35"></a>
-
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 <script>
-    particlesJS("particles-js", {
-        "particles": {
-            "number": { "value": 150 },
-            "size": { "value": 1.2 },
-            "line_linked": { "enable": true, "distance": 100, "color": "#00d4ff", "opacity": 0.45, "width": 1 },
-            "move": { "speed": 1.2 }
-        }
-    });
+    const produtos = [
+        { id: 0, loja: "mercado livre", nome: "Torneira Cozinha Gourmet Monocomando Extensível", p_antigo: 249.90, p: 76.65, img: "https://i.ibb.co/8ns0YjWy/Screenshot-2026-04-15-19-09-40-939-com-mercadolibre-edit.jpg", link: "https://meli.la/1RqYExX", fav: false, cat: 'casa' },
+        { id: 1, loja: "shopee", nome: "Conjunto de Copos de Vidro Premium", p_antigo: 59.90, p: 34.00, img: "https://i.ibb.co/zTFmNXMx/99unxsg-11134201-7rdxi-mc2ffbg7mei476.jpg", link: "https://s.shopee.com.br/qfR8T2TWH", fav: false, cat: 'cozinha' },
+        { id: 2, loja: "shopee", nome: "Smartwatch Ultra Series Especial", p_antigo: 149.00, p: 77.90, img: "https://i.ibb.co/20GjcyDM/no-mark-React-Native-snapshot-image-1.png", link: "https://s.shopee.com.br/30jvo7xISl", fav: false, cat: 'tech' },
+        { id: 3, loja: "shopee", nome: "Fone de Ouvido Bluetooth Pro High", p_antigo: 65.00, p: 26.77, img: "https://i.ibb.co/hRgVkK0y/no-mark-React-Native-snapshot-image-2.png", link: "https://s.shopee.com.br/2LUF1GuwdD", fav: false, cat: 'tech' }
+    ];
 
-    const selos = ["🛡️ VENDEDOR VERIFICADO", "🚀 ENTREGA IMEDIATA", "⭐ 100% SEGURO", "💎 REFERÊNCIA NO FF"];
-    let sIdx = 0;
-    setInterval(() => {
-        const el = document.getElementById('ref-text');
-        el.style.opacity = 0;
-        setTimeout(() => {
-            sIdx = (sIdx + 1) % selos.length;
-            el.innerText = selos[sIdx];
-            el.style.opacity = 1;
-        }, 500);
-    }, 4000);
+    const cidades = ["São Paulo", "Rio de Janeiro", "Curitiba", "Salvador", "Fortaleza", "Manaus", "Recife", "Brasília", "Caculé"];
+    const nomes = ["Ricardo", "Ana", "Marcos", "Julia", "Felipe", "Sandra", "Bruno", "Carla", "Claudinei"];
 
-    let slideIdx = 1;
-    showDivs(slideIdx);
+    function showSale() {
+        const saleText = document.getElementById('sale-text');
+        const saleDiv = document.getElementById('sale-notification');
+        saleText.innerText = `${nomes[Math.floor(Math.random()*nomes.length)]} de ${cidades[Math.floor(Math.random()*cidades.length)]} comprou agora!`;
+        saleDiv.classList.add('show');
+        setTimeout(() => saleDiv.classList.remove('show'), 5000);
+    }
+    setInterval(showSale, 25000); 
 
-    function plusDivs(n) { showDivs(slideIdx += n); }
-    function currentDiv(n) { showDivs(slideIdx = n); }
+    let idleTimer;
+    function startIdleTimer() {
+        clearTimeout(idleTimer);
+        document.title = "Mega Fast VIP";
+        idleTimer = setTimeout(() => { document.title = "⚠️ BUG DETECTADO! Volta logo!"; }, 50 * 60 * 1000); 
+    }
+    ['click', 'touchstart', 'scroll'].forEach(e => document.addEventListener(e, startIdleTimer));
 
-    function showDivs(n) {
-        let x = document.getElementsByClassName("mySlides");
-        let dots = document.getElementsByClassName("dot");
-        if (n > x.length) slideIdx = 1; if (n < 1) slideIdx = x.length;
-        for (let i = 0; i < x.length; i++) {
-            x[i].style.display = "none";
-            dots[i].classList.remove("active");
-        }
-        x[slideIdx-1].style.display = "block";
-        dots[slideIdx-1].classList.add("active");
+    function requestRealPush() {
+        if (!('Notification' in window)) return;
+        Notification.requestPermission().then(p => { if(p==='granted') new Notification("Mega Fast", {body: "Alertas ativos!"}); closePush(); });
+    }
+    function closePush() { document.getElementById('push-banner').classList.remove('show'); }
+    setTimeout(() => { if(Notification.permission !== 'granted') document.getElementById('push-banner').classList.add('show'); }, 4000);
+
+    let currentMode = 'all';
+    function toggleFav(id) { const p = produtos.find(i => i.id === id); p.fav = !p.fav; search(); }
+    function filterTab(mode) { currentMode = mode; document.getElementById('tabAll').classList.toggle('active', mode==='all'); document.getElementById('tabFav').classList.toggle('active', mode==='fav'); search(); }
+    function search() {
+        const text = document.getElementById('searchInput').value.toLowerCase();
+        let filtered = produtos.filter(p => p.nome.toLowerCase().includes(text) || p.cat.includes(text));
+        if (currentMode === 'fav') filtered = filtered.filter(p => p.fav);
+        render(filtered);
     }
 
-    function iniciarReserva() {
-        if (localStorage.getItem('res_ok')) return;
-        localStorage.setItem('res_ok', Date.now() + (600 * 1000));
-        timer();
+    function render(list) {
+        const vitrine = document.getElementById('vitrine');
+        vitrine.innerHTML = list.map(p => {
+            const isShopee = p.loja === "shopee";
+            return `
+                <div class="product-card">
+                    <div class="discount-tag">-${Math.round(((p.p_antigo-p.p)/p.p_antigo)*100)}% OFF</div>
+                    <div class="origin-tag ${isShopee ? 'tag-shopee' : 'tag-meli'}">${isShopee ? 'Shopee' : 'Mercado Livre'}</div>
+                    <button class="fav-btn ${p.fav ? 'active' : ''}" onclick="toggleFav(${p.id})"><i class="fa-solid fa-heart"></i></button>
+                    <img src="${p.img}" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-name">${p.nome}</h3>
+                        <div class="price-box">
+                            <span class="old-price">De R$ ${p.p_antigo.toFixed(2)}</span>
+                            <span class="price">R$ ${p.p.toFixed(2)}</span>
+                        </div>
+                        <div class="benefit-badges">
+                            <span class="b-badge" style="color:var(--green)">Frete Grátis</span>
+                            <span class="b-badge" style="color:var(--blue)">Oficial</span>
+                        </div>
+                    </div>
+                    <button class="btn-buy ${isShopee ? 'btn-shopee' : 'btn-meli'}" onclick="window.open('${p.link}')">
+                        ${isShopee ? 'VER NA SHOPEE' : 'VER NO MERCADO LIVRE'}
+                    </button>
+                </div>`;
+        }).join('');
     }
-    function timer() {
-        const exp = localStorage.getItem('res_ok');
-        if (!exp) return;
-        setInterval(() => {
-            const r = Math.floor((exp - Date.now()) / 1000);
-            const btn = document.getElementById('btnReserva');
-            if (r > 0) {
-                document.getElementById('card1').classList.add('is-reserved');
-                btn.classList.add('active');
-                btn.innerText = `⏳ EXPIRA EM ${Math.floor(r/60)}:${(r%60).toString().padStart(2,'0')}`;
-            } else {
-                document.getElementById('card1').classList.remove('is-reserved');
-                btn.classList.remove('active'); btn.innerText = "🔒 RESERVAR CONTA";
-            }
-        }, 1000);
-    }
-    window.onload = timer;
-
-    function toggleAudio() {
-        var audio = document.getElementById("myAudio");
-        var btn = document.getElementById("audioBtn");
-        if (audio.paused) { audio.play(); btn.innerText = "🔊"; } else { audio.pause(); btn.innerText = "🔇"; }
-    }
+    function resetSearch() { document.getElementById('searchInput').value = ''; search(); }
+    function searchByCat(cat) { document.getElementById('searchInput').value = cat; search(); }
+    
+    render(produtos);
+    startIdleTimer();
+    setInterval(() => { document.getElementById('user-online').innerText = Math.floor(Math.random()*(175-135+1))+135; }, 4000);
 </script>
 </body>
 </html>
-
